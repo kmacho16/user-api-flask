@@ -1,9 +1,7 @@
 from config import app
 from models import *
 
-@app.route("/")
-def index():
-    return "Hello world"
+import users.application.UserController
 
 
 if __name__ == '__main__': 
