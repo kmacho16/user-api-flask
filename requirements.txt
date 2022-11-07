@@ -2,3 +2,4 @@ Flask
 Flask-Migrate
 marshmallow-sqlalchemy
 psycopg2-binary 
+Gunicorn
