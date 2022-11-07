@@ -1,18 +1,12 @@
-from config import app, db
-from models import User
-from flask import jsonify, make_response
-from ..infrastructure.schema import UserSchema
-import json
+from config import app
+from ..domain.services.userService import UserService
+from ..infrastructure.repository.userRepositoryImp import UserRepositoryImp
 
+userService = UserService(UserRepositoryImp)
 
 @app.route('/users', methods=['GET'])
 def index():
-    data = User.query.all()
-    userSchema = UserSchema(many=True)
-    dump_data = userSchema.dump(data)
-
-    print(dump_data)
-    return dump_data
+    return userService.getAllUsers()
 
 def row2dict(row):
     d = {}
