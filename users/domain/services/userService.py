@@ -5,3 +5,6 @@ class UserService:
 
     def getAllUsers(self):
         return self.repository.getAllUsers()
+
+    def postUsers(self, user):
+        return self.repository.postUsers(user)

@@ -1,6 +1,9 @@
 from config import app
+from flask import request, jsonify
+
 from ..domain.services.userService import UserService
 from ..infrastructure.repository.userRepositoryImp import UserRepositoryImp
+from ..domain.model.userModel import User
 
 userService = UserService(UserRepositoryImp)
 
@@ -8,9 +11,19 @@ userService = UserService(UserRepositoryImp)
 def index():
     return userService.getAllUsers()
 
-def row2dict(row):
-    d = {}
-    for column in row.columns:
-        d[column.name] = str(getattr(row, column.name))
-
-    return d
+@app.route('/users', methods=['POST'])
+def post():
+    request_data = request.get_json()
+    print(request_data)
+    user = User(
+        request_data['typeDocument'],
+        request_data['numDocument'],
+        request_data['name'],
+        request_data['lastName'],
+        request_data['hobbie']
+        )
+    id = userService.postUsers(user)
+    return jsonify(
+        username=user.name,
+        id=id
+    )
