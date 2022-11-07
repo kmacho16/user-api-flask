@@ -13,5 +13,5 @@ class UserSchema(SQLAlchemyAutoSchema):
     typeDocument = auto_field()
     numDocument = auto_field()
     name = auto_field()
-    lastaName = auto_field()
+    lastName = auto_field()
     hobbie = auto_field()
