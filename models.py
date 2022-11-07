@@ -5,5 +5,5 @@ class User(db.Model):
     typeDocument = db.Column(db.String(50))
     numDocument = db.Column(db.String(80))
     name = db.Column(db.String(200))
-    lastaName = db.Column(db.String(200))
+    lastName = db.Column(db.String(200))
     hobbie = db.Column(db.String(200))
