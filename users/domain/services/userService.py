@@ -2,8 +2,8 @@ from flask import jsonify
 
 class UserService:
 
-    def __init__(self, repository) -> None:
-        self.repository = repository
+    def __init__(self, repository):
+        self.repository = repository()
 
     def getAllUsers(self):
         return self.repository.getAllUsers()
@@ -19,5 +19,12 @@ class UserService:
         return jsonify (
             message="User deleted",
             id=id
+        )
+
+    def updateUser(self, id, body):
+        updatedUser = self.repository.updateUser(id, body)
+        return jsonify (
+            message="User updated",
+            user=id
         )
 

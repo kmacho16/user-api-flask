@@ -11,14 +11,7 @@ userService = UserService(UserRepositoryImp)
 def index():
     if request.method == 'POST':
         request_data = request.get_json()
-        print(request_data)
-        user = User(
-            request_data['typeDocument'],
-            request_data['numDocument'],
-            request_data['name'],
-            request_data['lastName'],
-            request_data['hobbie']
-            )
+        user = transformRequestToData(request_data)
         id = userService.postUsers(user)
         return jsonify(
             username=user.name,
@@ -26,8 +19,22 @@ def index():
         )
     return userService.getAllUsers()
 
-@app.route("/users/<int:id>", methods=['GET','DELETE'])
+@app.route("/users/<int:id>", methods=['GET','DELETE','PUT'])
 def getById(id):
+    
     if request.method == 'DELETE':
         return userService.deleteUser(id)
+    if request.method == 'PUT':
+        request_data = request.get_json()
+        user = transformRequestToData(request_data)
+        return userService.updateUser(id,user)
     return userService.getUserById(id)
+
+def transformRequestToData(request_data):
+    return User(
+        request_data['typeDocument'],
+        request_data['numDocument'],
+        request_data['name'],
+        request_data['lastName'],
+        request_data['hobbie']
+        )

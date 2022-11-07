@@ -12,5 +12,5 @@ class userRepositoryInterface:
     def deleteUser(id:int):
         pass
 
-    def updateUser(id:int)->User:
+    def updateUser(id:int, body: User)->User:
         pass
