@@ -5,3 +5,12 @@ class userRepositoryInterface:
 
     def postUsers(user:User):
         pass
+
+    def getUserById(id:int)->User:
+        pass
+
+    def deleteUser(id:int):
+        pass
+
+    def updateUser(id:int)->User:
+        pass

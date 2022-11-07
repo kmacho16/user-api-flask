@@ -7,23 +7,27 @@ from ..domain.model.userModel import User
 
 userService = UserService(UserRepositoryImp)
 
-@app.route('/users', methods=['GET'])
+@app.route('/users', methods=['GET','POST'])
 def index():
+    if request.method == 'POST':
+        request_data = request.get_json()
+        print(request_data)
+        user = User(
+            request_data['typeDocument'],
+            request_data['numDocument'],
+            request_data['name'],
+            request_data['lastName'],
+            request_data['hobbie']
+            )
+        id = userService.postUsers(user)
+        return jsonify(
+            username=user.name,
+            id=id
+        )
     return userService.getAllUsers()
 
-@app.route('/users', methods=['POST'])
-def post():
-    request_data = request.get_json()
-    print(request_data)
-    user = User(
-        request_data['typeDocument'],
-        request_data['numDocument'],
-        request_data['name'],
-        request_data['lastName'],
-        request_data['hobbie']
-        )
-    id = userService.postUsers(user)
-    return jsonify(
-        username=user.name,
-        id=id
-    )
+@app.route("/users/<int:id>", methods=['GET','DELETE'])
+def getById(id):
+    if request.method == 'DELETE':
+        return userService.deleteUser(id)
+    return userService.getUserById(id)

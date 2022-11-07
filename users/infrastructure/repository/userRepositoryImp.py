@@ -21,3 +21,19 @@ class UserRepositoryImp(userRepositoryInterface):
         db.session.add(newUser)
         db.session.commit()
         return newUser.id
+    
+    def getUserById(id: int) -> User:
+        user = User.query.filter_by(id=id).first()
+        userSchema = UserSchema()
+        dump_data = userSchema.dump(user)
+        return dump_data
+
+    def updateUser(id: int) -> User:
+        return super().updateUser()
+
+    def deleteUser(id: int):
+        user = User.query.filter_by(id=id).first()
+        if user:
+            db.session.delete(user)
+            db.session.commit()
+        return id
